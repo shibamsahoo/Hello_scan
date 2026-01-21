@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroScan AI | MRI Prediction</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-brain"></i>
+                <span>NeuroScan</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active"><i class="fa-solid fa-folder-open"></i> Cases</li>
+                <li><i class="fa-solid fa-layer-group"></i> 3D View</li>
+                <li><i class="fa-solid fa-chart-line"></i> Analytics</li>
+                <li><i class="fa-solid fa-cog"></i> Settings</li>
+            </ul>
+            <div class="user-profile">
+                <div class="avatar">DR</div>
+                <span>Dr. Smith</span>
+            </div>
+        </nav>
+
+        <main class="viewer-area">
+            <header class="top-bar">
+                <div class="patient-info">
+                    <h2>Patient: ANON-4921</h2>
+                    <span class="badge">Brain MRI • T2 Weighted</span>
+                </div>
+                <div class="actions">
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                    <button class="btn btn-secondary" onclick="document.getElementById('fileInput').click()">
+                        <i class="fa-solid fa-upload"></i> Upload Scan
+                    </button>
+                    <button class="btn btn-primary" id="analyzeBtn" disabled>
+                        <i class="fa-solid fa-microchip"></i> Run AI Prediction
+                    </button>
+                </div>
+            </header>
+
+            <div class="canvas-container">
+                <div class="viewport" id="viewport">
+                    <div class="placeholder-text" id="placeholder">
+                        <i class="fa-solid fa-image"></i>
+                        <p>Upload an MRI scan to begin</p>
+                    </div>
+                    
+                    <img id="mriImage" class="mri-image hidden" alt="MRI Scan">
+                    
+                    <div id="aiOverlay" class="mask-overlay hidden"></div>
+                    
+                    <div id="loader" class="loader hidden">
+                        <div class="spinner"></div>
+                        <p>Processing Neural Network...</p>
+                    </div>
+                </div>
+
+                <div class="toolbar">
+                    <button title="Zoom In"><i class="fa-solid fa-search-plus"></i></button>
+                    <button title="Zoom Out"><i class="fa-solid fa-search-minus"></i></button>
+                    <button title="Contrast"><i class="fa-solid fa-adjust"></i></button>
+                    <button title="Reset"><i class="fa-solid fa-undo"></i></button>
+                </div>
+            </div>
+        </main>
+
+        <aside class="results-panel">
+            <h3>AI Analysis</h3>
+            
+            <div class="card">
+                <h4>Prediction Control</h4>
+                <div class="control-group">
+                    <label>Show Mask</label>
+                    <input type="checkbox" id="toggleMask" checked disabled>
+                </div>
+                <div class="control-group">
+                    <label>Opacity</label>
+                    <input type="range" id="opacitySlider" min="0" max="1" step="0.1" value="0.5" disabled>
+                </div>
+            </div>
+
+            <div class="card">
+                <h4>Findings</h4>
+                <div class="stat-box">
+                    <span>Classification</span>
+                    <strong id="resultClass">--</strong>
+                </div>
+                <div class="stat-box">
+                    <span>Confidence</span>
+                    <strong id="resultConf" class="highlight">--%</strong>
+                </div>
+                <div class="stat-box">
+                    <span>Lesion Size</span>
+                    <strong id="resultSize">-- mm²</strong>
+                </div>
+            </div>
+
+            <div class="disclaimer">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                For Research Use Only. Not for clinical diagnosis.
+            </div>
+        </aside>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
